@@ -1,32 +1,111 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
+  <meta charset="UTF-8">
   <title>地區點名系統</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f6fa;
+      color: #333;
+    }
+
+    h2 {
+      color: #2f3640;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    form label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #dcdde1;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #40739e;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #273c75;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h2>地區點名</h2>
-  <form id="attendanceForm">
-    地區：
-    <select name="region" id="regionSelect" required></select><br>
-    姓名：
-    <input type="text" name="name" required><br>
-    <button type="submit">點名</button>
-  </form>
+  <div class="container">
+    <div class="card">
+      <h2>地區點名</h2>
+      <form id="attendanceForm">
+        <label for="regionSelect">地區：</label>
+        <select name="region" id="regionSelect" required></select>
 
-  <h2>新增地區</h2>
-  <form id="addRegionForm">
-    地區名稱：
-    <input type="text" name="region" required><br>
-    <button type="submit">新增地區</button>
-  </form>
+        <label for="nameInput">姓名：</label>
+        <input type="text" id="nameInput" name="name" required>
 
-  <h2>刪除地區</h2>
-  <form id="deleteRegionForm">
-    地區名稱：
-    <select name="region" id="deleteRegionSelect" required></select><br>
-    <button type="submit">刪除地區</button>
-  </form>
+        <button type="submit">點名</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>新增地區</h2>
+      <form id="addRegionForm">
+        <label for="addRegionInput">地區名稱：</label>
+        <input type="text" id="addRegionInput" name="region" required>
+
+        <button type="submit">新增地區</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>刪除地區</h2>
+      <form id="deleteRegionForm">
+        <label for="deleteRegionSelect">地區名稱：</label>
+        <select name="region" id="deleteRegionSelect" required></select>
+
+        <button type="submit">刪除地區</button>
+      </form>
+    </div>
+  </div>
 
   <script>
     const scriptURL = "https://script.google.com/macros/s/AKfycbzrEm5CYCI92Ll3WCQf3T8vLZugzet398LqwGUQTnRS9PNeHJ-8lesbiomSluR99qY/exec";
@@ -70,6 +149,7 @@
       .then(data => {
         alert(data);
         loadRegions();
+        form.reset();
       })
       .catch(error => alert("錯誤：" + error));
     }
