@@ -24,22 +24,27 @@
     <h1 class="text-center mb-4">📋 地區點名系統</h1>
 
     <!-- 地區點名 -->
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">地區點名</h5>
-        <form id="attendanceForm">
-          <div class="mb-3">
-            <label for="regionSelect" class="form-label">地區：</label>
-            <select name="region" id="regionSelect" class="form-select" required></select>
-          </div>
-          <div class="mb-3">
-            <label for="nameInput" class="form-label">姓名：</label>
-            <input type="text" id="nameInput" name="name" class="form-control" required>
-          </div>
-          <button type="submit" class="btn btn-primary">點名</button>
-        </form>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title">地區點名</h5>
+    <form id="attendanceForm">
+      <div class="mb-3">
+        <label for="regionSelect" class="form-label">地區：</label>
+        <select name="region" id="regionSelect" class="form-select" required></select>
       </div>
-    </div>
+      <div class="mb-3">
+        <label for="nameInput" class="form-label">姓名：</label>
+        <input type="text" id="nameInput" name="name" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="dateInput" class="form-label">日期：</label>
+        <input type="date" id="dateInput" name="date" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">點名</button>
+    </form>
+  </div>
+</div>
+
 
     <!-- 新增地區 -->
     <div class="card shadow-sm">
@@ -75,7 +80,7 @@
 
   <!-- 你的 Google Apps Script -->
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbzrEm5CYCI92Ll3WCQf3T8vLZugzet398LqwGUQTnRS9PNeHJ-8lesbiomSluR99qY/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxzJoPjGuFyfj2NMC9dsBfptkjjuUdCsmJZD0ihY2kj0XPdnzPzGWivaz31LVGYzB35/exec";
 
     function loadRegions() {
       fetch(scriptURL)
