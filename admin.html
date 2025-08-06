@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>地區點名系統</title>
+</head>
+<body>
+  <h2>地區點名</h2>
+  <form id="attendanceForm">
+    地區：
+    <select name="region" id="regionSelect" required></select><br>
+    姓名：
+    <input type="text" name="name" required><br>
+    <button type="submit">點名</button>
+  </form>
+
+  <h2>新增地區</h2>
+  <form id="addRegionForm">
+    地區名稱：
+    <input type="text" name="region" required><br>
+    <button type="submit">新增地區</button>
+  </form>
+
+  <h2>刪除地區</h2>
+  <form id="deleteRegionForm">
+    地區名稱：
+    <select name="region" id="deleteRegionSelect" required></select><br>
+    <button type="submit">刪除地區</button>
+  </form>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzrEm5CYCI92Ll3WCQf3T8vLZugzet398LqwGUQTnRS9PNeHJ-8lesbiomSluR99qY/exec";
+
+    function loadRegions() {
+      fetch(scriptURL)
+        .then(response => response.json())
+        .then(regions => {
+          const regionSelect = document.getElementById("regionSelect");
+          const deleteRegionSelect = document.getElementById("deleteRegionSelect");
+          regionSelect.innerHTML = "";
+          deleteRegionSelect.innerHTML = "";
+
+          regions.forEach(region => {
+            const option1 = document.createElement("option");
+            option1.value = region;
+            option1.textContent = region;
+            regionSelect.appendChild(option1);
+
+            const option2 = document.createElement("option");
+            option2.value = region;
+            option2.textContent = region;
+            deleteRegionSelect.appendChild(option2);
+          });
+        });
+    }
+
+    function sendForm(form, action) {
+      const formData = new FormData(form);
+      formData.append("action", action);
+      const params = new URLSearchParams(formData).toString();
+
+      fetch(scriptURL, {
+        method: "POST",
+        body: params,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      })
+      .then(response => response.text())
+      .then(data => {
+        alert(data);
+        loadRegions();
+      })
+      .catch(error => alert("錯誤：" + error));
+    }
+
+    document.getElementById("attendanceForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      sendForm(e.target, "attendance");
+    });
+
+    document.getElementById("addRegionForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      sendForm(e.target, "addRegion");
+    });
+
+    document.getElementById("deleteRegionForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      sendForm(e.target, "deleteRegion");
+    });
+
+    loadRegions();
+  </script>
+</body>
+</html>
